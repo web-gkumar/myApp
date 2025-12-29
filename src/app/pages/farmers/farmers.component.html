@@ -1,0 +1,10 @@
+<ion-header><ion-toolbar><ion-title>Farmers</ion-title></ion-toolbar></ion-header>
+<ion-content>
+  <ion-item *ngFor="let f of farmers">
+    <ion-label>
+      <h2>{{f.name}}</h2>
+      <p>{{f.location}}</p>
+    </ion-label>
+    <ion-button fill="outline" href="tel:{{f.mobile}}">Call</ion-button>
+  </ion-item>
+</ion-content>
