@@ -1,9 +1,16 @@
-<ion-header><ion-toolbar><ion-title>Buyers</ion-title></ion-toolbar></ion-header>
+<app-header></app-header>
+
 <ion-content>
-  <ion-item *ngFor="let b of buyers">
+  <ion-card *ngFor="let c of crops">
+    <ion-item lines="none">
+    <ion-thumbnail slot="start"><img src="https://i.pravatar.cc/150" /></ion-thumbnail>
     <ion-label>
-      <h2>{{b.name}}</h2>
-      <p>{{b.location}}</p>
+      <h2 style="font-size:16px;font-weight:600;">Ramesh Kumar - Farmer</h2>
+      <h5>Crops: {{c.name}} - ₹{{c.price}}/kg</h5>
+      <small style="opacity: 0.5;">Qty: {{c.quantity}},</small>
+      <small style="opacity: 0.5; margin-left:20px;">Location: {{c.location}}</small>
     </ion-label>
+    <ion-badge slot="end" color="success"><ion-icon name="call-outline"></ion-icon></ion-badge>
   </ion-item>
+  </ion-card>
 </ion-content>

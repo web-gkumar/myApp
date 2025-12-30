@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Crop, User } from '../models/crop';
+import { Crop, User, Category } from '../models/crop';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +23,39 @@ export class Data {
   ];
 
 
+  cropCategories: Category[] = [
+    {
+      id: 1,
+      name: 'Vegetables',
+      image: 'assets/categories/vegetables.jpg'
+    },
+    {
+      id: 2,
+      name: 'Fruits',
+      image: 'assets/categories/fruits.jpg'
+    },
+    {
+      id: 3,
+      name: 'Grains',
+      image: 'assets/categories/grains.jpg'
+    },
+    {
+      id: 4,
+      name: 'Pulses',
+      image: 'assets/categories/pulses.jpg'
+    },
+    {
+      id: 5,
+      name: 'Spices',
+      image: 'assets/categories/spices.jpg'
+    }
+  ];
+
+
   getCrops() { return this.crops; }
   getFarmers() { return this.farmers; }
   getBuyers() { return this.buyers; }
+  getCategories() { return this.cropCategories; }
 
 
   addRequirement(data: any) {

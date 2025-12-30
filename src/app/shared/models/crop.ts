@@ -15,3 +15,9 @@ export interface User {
     mobile: string;
     location: string;
 }
+
+export interface Category {
+    id: number;
+    name: string;
+    image: string;
+}
