@@ -5,6 +5,7 @@ import { HeaderComponent } from '../header/header.component';
 import { searchOutline, callOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { Data } from 'src/app/shared/services/data';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,11 +20,22 @@ categories: any[] = [];
 
 
 
-  constructor(private dataService: Data) {
+  constructor(
+    private ds: Data,
+    private router: Router
+  ) {
     addIcons({ searchOutline, callOutline });
   }
 
   ngOnInit() {
-    this.categories = this.dataService.getCategories();
+    this.categories = this.ds.getCategories();
   }
+
+
+
+  openCategory(cat: any) {
+    this.router.navigate(['/tabs/category', cat], { replaceUrl: true });
+  }
+
+
 }

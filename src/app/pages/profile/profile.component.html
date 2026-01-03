@@ -1,12 +1,83 @@
-  <ion-card>
+<ion-header class="profile-header">
+  <div class="profile-top">
+    <div class="avatar-box"><img src="https://i.pravatar.cc/150?img=47" /><ion-icon name="camera-outline"></ion-icon></div>
+    <h2>Jsessica Simpson</h2>
+    <h6>Location: Samastipur Bihar 848101</h6>
+    <p>9898989898</p>
+    <ion-button size="small" (click)="toggleEdit()"> {{ isEdit ? 'Follow' : 'Followed' }}</ion-button>
+  </div>
+</ion-header>
+
+
+
+
+
+<ion-content>
+  <ion-segment [(ngModel)]="activeTab">
+    <ion-segment-button value="orders">Orders</ion-segment-button>
+    <ion-segment-button value="favorite">Favorite</ion-segment-button>
+    <ion-segment-button value="about">About</ion-segment-button>
+    <ion-segment-button value="setting">Setting</ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="activeTab === 'orders'" class="orders-box">
+    <ion-list>
+      <ion-item>
+        <ion-label><h5>Add Items</h5></ion-label>
+        <ion-button size="small" (click)="toggleEdit()"> {{ isEdit ? 'Add' : 'Add' }}</ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-card *ngFor="let c of crops">
+      <ion-item lines="none">
+        <ion-thumbnail slot="start"><img src="https://i.pravatar.cc/150" /></ion-thumbnail>
+        <ion-label>
+          <h5>{{c.name}} - ₹{{c.price}}/kg</h5>
+          <small style="opacity: 0.5;">Qty: {{c.quantity}},</small>
+          <small style="opacity: 0.5;margin:0 10px;">delevery: 15-Jan</small>
+        </ion-label>
+        <ion-badge slot="end" color="success"><ion-icon name="pencil-outline"></ion-icon></ion-badge>
+        <ion-badge slot="end" color="danger"><ion-icon name="close-circle-outline"></ion-icon></ion-badge>
+      </ion-item>
+    </ion-card>
+  </div>
+
+
+  <ion-list *ngIf="activeTab === 'about'">
     <ion-item>
-    <ion-thumbnail slot="start"><img src="https://i.pravatar.cc/150" /></ion-thumbnail>
-    <ion-label>
-      <h2 style="font-size:16px;font-weight:600;">Ramesh Kumar - Farmer</h2>
-      <h5>Contact No:9898989898</h5>
-      <h5>Location: Patna</h5>
-      <small style="opacity: 0.5;"></small>
-    </ion-label>
-    <ion-badge slot="end" color="success">o</ion-badge>
-  </ion-item>
-  </ion-card>
+      <ion-label>
+        <h5>Personal Information</h5>
+      </ion-label>
+      <ion-button size="small" fill="clear" (click)="toggleEdit()"> {{ isEdit ? 'Save' : 'Edit' }}</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Full Name</ion-label>
+      <ion-input [(ngModel)]="user.name" [readonly]="!isEdit"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Mobile</ion-label>
+      <ion-input type="tel" [(ngModel)]="user.mobile" [readonly]="!isEdit"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input [(ngModel)]="user.email" [readonly]="!isEdit"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Address</ion-label>
+      <ion-textarea [(ngModel)]="user.address" [readonly]="!isEdit"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Location</ion-label>
+      <ion-input [(ngModel)]="user.location" [readonly]="!isEdit"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Country</ion-label>
+      <ion-input [(ngModel)]="user.country" [readonly]="!isEdit"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label position="stacked">About You</ion-label>
+      <ion-textarea rows="3" [(ngModel)]="user.about" [readonly]="!isEdit"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

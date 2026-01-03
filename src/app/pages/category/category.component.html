@@ -3,7 +3,10 @@
 <ion-grid>
   <ion-row>
     <ion-col size="4" *ngFor="let cat of categories" class="cat-col">
-      <div class="cat-card"><img [src]="cat.image"/><p>{{ cat.name }}</p></div>
+      <div class="cat-card" (click)="openCategory(cat)">
+        <img src="https://i.pravatar.cc/150"/>
+        <p>{{ cat }}</p>
+      </div>
     </ion-col>
   </ion-row>
 </ion-grid>

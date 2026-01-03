@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ title | titlecase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card *ngFor="let c of allItems">
+    <ion-item lines="none" style="margin-bottom:10px;">
+      <ion-thumbnail slot="start"><ion-avatar><img src="https://ionicframework.com/docs/img/demos/card-media.png" /></ion-avatar></ion-thumbnail>
+      <ion-label>Ramesh Kumar <small style="display:block;opacity:0.5;">311 Follower</small></ion-label>
+      <ion-button size="small">Follow</ion-button>
+    </ion-item>
+
+
+  <swiper-container slides-per-view="1" pagination="true" loop="true">
+    <swiper-slide><img src="assets/banner/banner.jpg" /></swiper-slide>
+    <swiper-slide><img src="assets/banner/banner2.jpg" /></swiper-slide>
+    <swiper-slide><img src="assets/banner/banner3.jpg" /></swiper-slide>
+  </swiper-container>
+
+    <ion-card-header>
+      <ion-card-title>{{c.name}} - ₹{{c.price}}/kg</ion-card-title>
+      <ion-card-subtitle>
+        <ion-badge color="success"><ion-icon name="call-outline"></ion-icon></ion-badge>
+        <span>Ramesh Kumar - Farmer</span>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <span style="opacity: 0.5;">Qty: {{c.quantity}},</span>
+      <span style="opacity: 0.5; margin-left:20px;">Location: {{c.location}}</span>
+    </ion-card-content>
+
+  </ion-card>
+
+
+</ion-content>

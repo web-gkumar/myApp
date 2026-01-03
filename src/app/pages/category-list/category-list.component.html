@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ category | titlecase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card *ngFor="let c of allItems">
+    <ion-item lines="none">
+      <ion-thumbnail slot="start"><img src="https://i.pravatar.cc/150" /></ion-thumbnail>
+      <ion-label>
+        <h5>Ramesh Kumar - {{c.location}}</h5>
+        <h5>{{c.name}} - ₹{{c.price}}/kg</h5>
+        <small style="opacity: 0.5;">Qty: {{c.quantity}},</small>
+        <small style="opacity: 0.5;margin:0 10px;">delevery: 15-Jan</small>
+      </ion-label>
+      <ion-badge slot="end" color="success"><ion-icon name="call-outline"></ion-icon></ion-badge>
+    </ion-item>
+  </ion-card>
+</ion-content>
