@@ -5,6 +5,7 @@ import { searchOutline, callOutline } from 'ionicons/icons';
 import { Data } from '../../shared/services/data';
 import { HeaderComponent } from '../header/header.component';
 import { addIcons } from 'ionicons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-seller',
@@ -15,9 +16,14 @@ import { addIcons } from 'ionicons';
 export class SellerComponent implements OnInit {
 
   crops: any[] = [];
-  constructor(private ds: Data) {
+  constructor(private ds: Data, private router: Router) {
     addIcons({ searchOutline, callOutline });
   }
   ngOnInit() { this.crops = this.ds.getCrops(); }
+
+
+  detailspage(data: any) {
+    this.router.navigate(['/tabs/details', data.id]);
+  }
 
 }

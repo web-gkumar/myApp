@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { Data } from '../../shared/services/data'
 import { addIcons } from 'ionicons';
@@ -19,6 +19,7 @@ export class CategoryListComponent  implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private dataService: Data
   ) {
     addIcons({ searchOutline, callOutline });
@@ -29,6 +30,9 @@ export class CategoryListComponent  implements OnInit {
     this.allItems = this.dataService.getDatabycategory(this.category);
   }
 
+    detailspage(data: any) {
+    this.router.navigate(['/tabs/details', data.id]);
+  }
   
 }
 

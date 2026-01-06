@@ -2,7 +2,7 @@ export interface postlist {
     id: number;
     category: string;
     name: string;
-    price: number;
+    price: string;
     quantity: string;
     location: string;
     image: string;

@@ -2,19 +2,27 @@
 
 <ion-content>
   <div class="bannerimg"><img src="../../../assets/banner/banner.jpg" width="100%" height="100px"></div>
-   <div class="recentpost">
-    <ion-item><h6>RECENT POSTS</h6></ion-item>
-    <ion-card *ngFor="let c of crops">
-      <ion-item lines="none">
-        <ion-thumbnail slot="start"><img src="https://i.pravatar.cc/150" /></ion-thumbnail>
-        <ion-label>
-          <h5>Ramesh Kumar - {{c.location}}</h5>
-          <h5>{{c.name}} - ₹{{c.price}}/kg</h5>
-          <small style="opacity: 0.5;">Qty: {{c.quantity}},</small>
-          <small style="opacity: 0.5;margin:0 10px;">Receve: 15-Jan</small>
-        </ion-label>
-        <ion-badge slot="end" color="success"><ion-icon name="call-outline"></ion-icon></ion-badge>
-      </ion-item>
-    </ion-card>
+   <div class="section-header">
+    <h2>Recommended</h2>
+    <p>Choose your goods from here</p>
   </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let c of crops">
+        <ion-card class="card" (click)="detailspage(c)">
+          <ion-img [src]="c.image"></ion-img>
+          <ion-badge color="danger" class="follow">Follow</ion-badge>
+          <ion-card-content>
+            <h3>{{ c.name | titlecase}}</h3>
+            <p>₹{{c.price}}/kg</p>
+            <p>Qty: {{c.quantity}}</p>
+            <p><small>{{ c.location }} Bihar</small></p>
+            <p><small>1 Day</small></p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

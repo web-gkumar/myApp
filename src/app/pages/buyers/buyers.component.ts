@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Data } from '../../shared/services/data';
 import { HeaderComponent } from '../header/header.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buyers',
@@ -13,7 +14,11 @@ import { HeaderComponent } from '../header/header.component';
 export class BuyersComponent implements OnInit {
 
   crops: any[] = [];
-  constructor(private ds: Data) { }
+  constructor(private ds: Data, private router: Router) { }
   ngOnInit() { this.crops = this.ds.getCrops(); }
+
+  detailspage(data: any) {
+    this.router.navigate(['/tabs/details', data.id]);
+  }
 
 }

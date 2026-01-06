@@ -1,6 +1,6 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { searchOutline, callOutline } from 'ionicons/icons';
+import { searchOutline, callOutline, locateOutline } from 'ionicons/icons';
 import { Data } from '../../shared/services/data';
 import { register } from 'swiper/element/bundle';
 import { CommonModule } from '@angular/common';
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     private ds: Data,
     private router: Router
   ) {
-    addIcons({ searchOutline, callOutline });
+    addIcons({ searchOutline, callOutline, locateOutline });
   }
 
 

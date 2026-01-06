@@ -1,12 +1,19 @@
 <app-header></app-header>
 
-<ion-grid>
-  <ion-row>
-    <ion-col size="4" *ngFor="let cat of categories" class="cat-col">
-      <div class="cat-card" (click)="openCategory(cat)">
-        <img src="https://i.pravatar.cc/150"/>
-        <p>{{ cat }}</p>
-      </div>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+<ion-content>
+  <div class="bannerimg"><img src="../../../assets/banner/banner.jpg" width="100%" height="100px"></div>
+  <div class="section-header">
+    <h2>Recommended</h2>
+    <p>Choose your goods from here</p>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" *ngFor="let cat of categories">
+        <div class="cat-card" (click)="openCategory(cat.category)">
+          <img [src]="cat.image" />
+          <small>{{ cat.category }}</small>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

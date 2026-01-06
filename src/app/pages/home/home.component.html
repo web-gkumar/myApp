@@ -1,35 +1,48 @@
 <app-header></app-header>
 
-<ion-content>
+  
 
-  <swiper-container slides-per-view="1" pagination="true" autoplay-delay="3000" loop="true">
+<ion-content>
+  <swiper-container slides-per-view="1" pagination="true" autoplay-delay="5000" loop="true">
     <swiper-slide><img src="assets/banner/banner.jpg" /></swiper-slide>
     <swiper-slide><img src="assets/banner/banner2.jpg" /></swiper-slide>
     <swiper-slide><img src="assets/banner/banner3.jpg" /></swiper-slide>
   </swiper-container>
 
-  <swiper-container slides-per-view="4" autoplay-delay="2000" loop="true">
+<swiper-container slides-per-view="4" autoplay-delay="3000" loop="true">
     <swiper-slide *ngFor="let cat of categories">
-      <div class="cat-card" (click)="openCategory(cat)">
-        <img src="https://i.pravatar.cc/150" />
-        <p>{{ cat }}</p>
+      <div class="cat-card" (click)="openCategory(cat.category)">
+        <img [src]="cat.image" />
+        <small>{{ cat.category }}</small>
       </div>
     </swiper-slide>
   </swiper-container>
 
 
 
-  <div class="recentpost">
-    <ion-item><h6>RECENT POSTS</h6></ion-item>
-    <ion-card *ngFor="let c of crops">
-      <ion-item lines="none" (click)="detailspage(c)">
-        <ion-thumbnail slot="start"><ion-avatar><img src="https://i.pravatar.cc/150" /></ion-avatar></ion-thumbnail>
-        <ion-label>
-          <h5>Ramesh Kumar - {{c.location}}</h5>
-          <h5>{{c.name}} - ₹{{c.price}}/kg</h5>
-        </ion-label>
-      </ion-item>
-    </ion-card>
-  </div>
 
+
+
+<div class="section-header">
+    <h2>Recommended</h2>
+    <p>Choose your goods from here</p>
+</div>
+
+<ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let c of crops">
+        <ion-card class="card" (click)="detailspage(c)">
+          <ion-img [src]="c.image"></ion-img>
+          <ion-badge color="danger" class="follow">Follow</ion-badge>
+          <ion-card-content>
+            <h3>{{ c.name | titlecase}}</h3>
+            <p>₹{{c.price}}/kg</p>
+            <p>Qty: {{c.quantity}}</p>
+            <p><small>{{ c.location }} Bihar</small></p>
+            <p><small>1 Day</small></p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

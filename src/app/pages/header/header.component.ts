@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { searchOutline, callOutline, cartOutline } from 'ionicons/icons';
+import { searchOutline, callOutline, cartOutline, personCircleOutline } from 'ionicons/icons';
 import { SearchResultComponent} from '../search-result/search-result.component';
 import { CartComponent } from '../cart/cart.component';
 import { addIcons } from 'ionicons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,10 +15,14 @@ import { addIcons } from 'ionicons';
 })
 export class HeaderComponent  implements OnInit {
 
-  constructor() {
-    addIcons({ searchOutline, callOutline, cartOutline });
+  constructor(private router: Router) {
+    addIcons({ searchOutline, callOutline, cartOutline, personCircleOutline });
   }
 
   ngOnInit() {}
+
+  goToSearch() {
+  this.router.navigate(['/tabs/search']);
+}
 
 }
