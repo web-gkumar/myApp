@@ -1,16 +1,18 @@
-.profile-header {background:var(--ion-color-success);
-  .profile-top {text-align:center;padding:20px 0;color:#fff;}
-  .avatar-box {position:relative;width:110px;margin:auto;
-      img {width:110px;height:110px;border-radius:50%;border:4px solid #fff;}
-      ion-icon {position:absolute;bottom:0;right:5px;background:#fff;color:#6fc52f;border-radius:50%;padding:6px;font-size:16px;}
+ion-card {--ion-item-background: transparent;
+  ion-item {--min-height:auto;}
+  ion-card-content {padding:5px 0;}
+  ion-avatar {width:80px;height:80px;margin-right:10px;position:relative;
+    ion-icon {position:absolute;bottom:0;right:5px;background:#fff;color:#6fc52f;border-radius:50%;padding:6px;font-size:16px;}
   }
-  * {margin:0;}
-
+  ion-img {height:auto;}
+  ion-badge {margin:0 5px}
 }
 
-
-
-
-
-
+.favtab {
+  ion-card {margin:10px;
+    ion-thumbnail {margin:0 10px 0 0;}
+    ion-badge {padding:5px;}
+    ion-item {--padding-start:0;--inner-padding-end:0}
+  }
+}
 

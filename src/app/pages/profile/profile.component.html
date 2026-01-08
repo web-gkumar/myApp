@@ -1,46 +1,131 @@
-<ion-header class="profile-header">
-  <div class="profile-top">
-    <div class="avatar-box"><img src="https://i.pravatar.cc/150?img=47" /><ion-icon name="camera-outline"></ion-icon></div>
-    <h2>Jsessica Simpson</h2>
-    <h6>Location: Samastipur Bihar 848101</h6>
-    <p>9898989898</p>
-    <ion-button size="small" (click)="toggleEdit()"> {{ isEdit ? 'Follow' : 'Followed' }}</ion-button>
-  </div>
-</ion-header>
-
-
-
-
-
 <ion-content>
-  <ion-segment [(ngModel)]="activeTab">
-    <ion-segment-button value="orders">Orders</ion-segment-button>
-    <ion-segment-button value="favorite">Favorite</ion-segment-button>
-    <ion-segment-button value="about">About</ion-segment-button>
-    <ion-segment-button value="setting">Setting</ion-segment-button>
-  </ion-segment>
+  <ion-card color="primary">
+    <ion-item lines="none">
+      <ion-avatar slot="start"> <img src="https://i.pravatar.cc/150" /> <ion-icon name="camera-outline"></ion-icon></ion-avatar>
+      <ion-label style="color:#fff;">
+        <h2>Jsessica Simpson</h2>
+        <p style="color:#fff;">9898989898</p>
+        <small>Samastipur Bihar</small>
+      </ion-label>
+    </ion-item>
+    <!-- <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <h3>150</h3>
+            <p>Followers</p>
+          </ion-col>
+          <ion-col class="ion-text-center">
+            <h3>200</h3>
+            <p>Following</p>
+          </ion-col>
+          <ion-col class="ion-text-center">
+            <h3>50</h3>
+            <p>Posts</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+     -->
+    <ion-segment [(ngModel)]="activeTab">
+      <ion-segment-button value="orders">Orders</ion-segment-button>
+      <ion-segment-button value="favorite">Favorite</ion-segment-button>
+      <ion-segment-button value="about">About</ion-segment-button>
+    </ion-segment>
+  </ion-card>
 
-  <div *ngIf="activeTab === 'orders'" class="orders-box">
-    <ion-list>
-      <ion-item>
-        <ion-label><h5>Add Items</h5></ion-label>
-        <ion-button size="small" (click)="toggleEdit()"> {{ isEdit ? 'Add' : 'Add' }}</ion-button>
-      </ion-item>
-    </ion-list>
 
+
+
+
+  <div *ngIf="activeTab === 'orders'">
+    <ion-accordion-group>
+      <ion-accordion value="first" toggleIcon="caret-forward-circle" toggleIconSlot="end">
+        <ion-item slot="header" color="light"> <ion-icon name="add-circle-outline"></ion-icon> <ion-label>Add Items</ion-label></ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-list>
+            <ion-item>
+              <ion-select placeholder="For Buy/Sell">
+                <ion-select-option value="apple">For Buy</ion-select-option>
+                <ion-select-option value="banana">For Sell</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item><ion-input color="primary" placeholder="Gobhi/Tamater/Aalu"></ion-input></ion-item>
+            <ion-item><ion-input color="primary" placeholder="120/kg"></ion-input></ion-item>
+            <ion-item><ion-input color="primary" placeholder="20/quntal"></ion-input></ion-item>
+            <ion-item><ion-input color="primary" label="Select Date" type="date"></ion-input></ion-item>
+
+            <ion-item>
+              <ion-label>File Upload</ion-label>
+              <input type="file" hidden #fileInput multiple accept="image/*,video/*"
+                (change)="onFilesSelected($event)" />
+              <ion-button expand="block" fill="outline" (click)="fileInput.click()">Select Files</ion-button>
+            </ion-item>
+
+            <swiper-container slides-per-view="1" pagination="true" autoplay-delay="5000" loop="true">
+              <swiper-slide *ngFor="let file of files; let i = index">
+                <ion-button size="small" color="danger" fill="clear" (click)="removeFile(i)">Remove</ion-button>
+                <img *ngIf="file.type === 'image'" [src]="file.url" />
+                <video *ngIf="file.type === 'video'" [src]="file.url" controls></video>
+              </swiper-slide>
+            </swiper-container>
+
+          </ion-list>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let c of crops">
+          <ion-card class="card">
+            <swiper-container slides-per-view="1" pagination="true" loop="true">
+              <swiper-slide><ion-img [src]="c.image"></ion-img></swiper-slide>
+              <swiper-slide><ion-img [src]="c.image"></ion-img></swiper-slide>
+              <swiper-slide><ion-img [src]="c.image"></ion-img></swiper-slide>
+            </swiper-container>
+
+            <ion-card-content>
+              <ion-item lines="none">
+                <ion-label>
+                  <h2>{{ c.name | titlecase}} - <small>₹{{c.price}}/kg</small></h2>
+                </ion-label>
+                <ion-label>
+                  <h2>Qty: <small>{{c.quantity}}</small></h2>
+                </ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label><small>Qty: {{c.quantity}}</small></ion-label>
+                <ion-label><small>delevery: 15-Jan</small></ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Perpose: For Buying</ion-label>
+                <ion-badge slot="end" color="success"><ion-icon name="pencil-outline"></ion-icon></ion-badge>
+                <ion-badge slot="end" color="danger"><ion-icon name="close-circle-outline"></ion-icon></ion-badge>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+  </div>
+
+
+
+  <ion-list class="favtab" *ngIf="activeTab === 'favorite'">
     <ion-card *ngFor="let c of crops">
       <ion-item lines="none">
         <ion-thumbnail slot="start"><img src="https://i.pravatar.cc/150" /></ion-thumbnail>
         <ion-label>
-          <h5>{{c.name}} - ₹{{c.price}}/kg</h5>
-          <small style="opacity: 0.5;">Qty: {{c.quantity}},</small>
-          <small style="opacity: 0.5;margin:0 10px;">delevery: 15-Jan</small>
+          <h5>Gkumar</h5><small style="opacity: 0.5;">Patna</small>
         </ion-label>
-        <ion-badge slot="end" color="success"><ion-icon name="pencil-outline"></ion-icon></ion-badge>
-        <ion-badge slot="end" color="danger"><ion-icon name="close-circle-outline"></ion-icon></ion-badge>
+        <ion-badge slot="end" color="success">Follower</ion-badge>
       </ion-item>
     </ion-card>
-  </div>
+
+  </ion-list>
 
 
   <ion-list *ngIf="activeTab === 'about'">

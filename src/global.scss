@@ -59,3 +59,24 @@ swiper-container::part(bullet-active) {background:white;width:20px;border-radius
     p {font-size:14px;font-weight:500;margin:0;}
 }
 
+
+ion-accordion.accordion-expanding > [slot=header] .ion-accordion-toggle-icon, ion-accordion.accordion-expanded > [slot=header] .ion-accordion-toggle-icon {
+    transform: rotate(90deg);
+}
+
+
+
+.auth-bg {--background:linear-gradient(135deg, #0f5132, #198754);display:flex;justify-content:center;align-items:center;
+    .auth-card {background:#fff;width:90%;max-width:360px;padding:25px;border-radius:18px;text-align:center;margin:50px auto 0;}
+    .auth-card h2 {margin-bottom:5px;}
+    .auth-card p {opacity:0.7;margin-bottom:15px;}
+    ion-item {margin-bottom:12px;--border-radius:12px;}
+    ion-button {margin-top:12px;}
+    .link {margin-top:15px;}
+    .link span {color:#198754;font-weight:600;cursor:pointer;}
+}
+
+
+ion-tab-button {
+    --color-selected:#198754;
+}
