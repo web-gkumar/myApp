@@ -1,44 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+declare var google: any;
+import { Component, AfterViewInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Auth } from '../../../shared/services/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [IonicModule, CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [IonicModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
-  otpSent = false;
+export class LoginComponent implements AfterViewInit  {
 
-  loginForm = this.fb.group({
-    mobile: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
-    otp: ['', Validators.required]
-  });
+  constructor(private http: HttpClient, private authService: Auth) {}
 
-  constructor(private fb: FormBuilder) { }
+  ngAfterViewInit() {
+    google.accounts.id.initialize({
+      client_id: '394870904623-c2alhq89rj8r10r5402t5ksk72n440oi.apps.googleusercontent.com',
+      callback: (response: any) => this.authService.handleGoogleResponse(response)
+    });
 
-  ngOnInit(): void {
-    
+    google.accounts.id.renderButton(
+      document.getElementById('googleBtn'),
+      {
+        theme: 'outline',
+        size: 'large',
+      }
+    );
   }
 
-  sendOtp() {
-    if (this.loginForm.get('mobile')?.invalid) return;
-    this.otpSent = true;
-    this.loginForm.get('otp')?.setValidators([
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(6)
-    ]);
-    this.loginForm.get('otp')?.updateValueAndValidity();
-    console.log('OTP sent to:', this.loginForm.value.mobile);
-  }
-
-  verifyOtp() {
-    if (this.loginForm.invalid) return;
-    console.log('Login success:', this.loginForm.value);
-  }
 
 }

@@ -1,42 +1,27 @@
 <ion-content>
   <ion-card color="primary">
     <ion-item lines="none">
-      <ion-avatar slot="start"> <img src="https://i.pravatar.cc/150" /> <ion-icon name="camera-outline"></ion-icon></ion-avatar>
+      <ion-avatar slot="start">
+        <img [src]="user?.user?.picture" />
+        <!-- <ion-icon name="camera-outline"></ion-icon> -->
+      </ion-avatar>
       <ion-label style="color:#fff;">
-        <h2>Jsessica Simpson</h2>
-        <p style="color:#fff;">9898989898</p>
-        <small>Samastipur Bihar</small>
+        <h2>{{user?.user?.name}}</h2>
+        <p style="color:#fff;">{{user?.user?.mobile ? user?.user?.mobile : '+91 xxx xxxx'}}</p>
+        <small>{{user?.user?.email}}</small>
       </ion-label>
     </ion-item>
-    <!-- <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col class="ion-text-center">
-            <h3>150</h3>
-            <p>Followers</p>
-          </ion-col>
-          <ion-col class="ion-text-center">
-            <h3>200</h3>
-            <p>Following</p>
-          </ion-col>
-          <ion-col class="ion-text-center">
-            <h3>50</h3>
-            <p>Posts</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-     -->
+
     <ion-segment [(ngModel)]="activeTab">
-      <ion-segment-button value="orders">Orders</ion-segment-button>
+      <ion-segment-button value="about">Orders</ion-segment-button>
       <ion-segment-button value="favorite">Favorite</ion-segment-button>
-      <ion-segment-button value="about">About</ion-segment-button>
+      <ion-segment-button value="orders">About</ion-segment-button>
     </ion-segment>
   </ion-card>
 
 
 
-
+  <!-- 
 
   <div *ngIf="activeTab === 'orders'">
     <ion-accordion-group>
@@ -125,44 +110,18 @@
       </ion-item>
     </ion-card>
 
-  </ion-list>
+  </ion-list> -->
 
 
-  <ion-list *ngIf="activeTab === 'about'">
-    <ion-item>
-      <ion-label>
-        <h5>Personal Information</h5>
-      </ion-label>
-      <ion-button size="small" fill="clear" (click)="toggleEdit()"> {{ isEdit ? 'Save' : 'Edit' }}</ion-button>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Full Name</ion-label>
-      <ion-input [(ngModel)]="user.name" [readonly]="!isEdit"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Mobile</ion-label>
-      <ion-input type="tel" [(ngModel)]="user.mobile" [readonly]="!isEdit"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Email</ion-label>
-      <ion-input [(ngModel)]="user.email" [readonly]="!isEdit"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Address</ion-label>
-      <ion-textarea [(ngModel)]="user.address" [readonly]="!isEdit"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Location</ion-label>
-      <ion-input [(ngModel)]="user.location" [readonly]="!isEdit"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Country</ion-label>
-      <ion-input [(ngModel)]="user.country" [readonly]="!isEdit"></ion-input>
-    </ion-item>
-    <ion-item lines="none">
-      <ion-label position="stacked">About You</ion-label>
-      <ion-textarea rows="3" [(ngModel)]="user.about" [readonly]="!isEdit"></ion-textarea>
-    </ion-item>
+  <ion-list *ngIf="activeTab === 'orders'">
+    <form [formGroup]="profileForm">
+      <ion-item><ion-label><h5>Personal Information</h5></ion-label></ion-item>
+      <ion-item><ion-input type="tel" placeholder="+91 xxxxxxxxxx" formControlName="mobile"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="Your Address" formControlName="address"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="Country" formControlName="country"></ion-input></ion-item>
+      <ion-button expand="block" (click)="submitProfile()">Save Profile</ion-button>
+    </form>
   </ion-list>
+
 
 </ion-content>

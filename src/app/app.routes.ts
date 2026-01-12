@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs/tabs.page';
+import { authGuard } from './shared/guards/auth-guard';
 
 export const routes: Routes = [
       { path: 'login', loadComponent: () => import('./pages/auth/login/login.component').then(m => m.LoginComponent)},
-      { path: 'register', loadComponent: () => import('./pages/auth/registation/registation.component').then(m => m.RegistationComponent)},
       { path: 'tabs', component: TabsPage, children: [
           { path: 'home', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent) },
           { path: 'seller', loadComponent: () => import('./pages/seller/seller.component').then(m => m.SellerComponent)},
@@ -13,7 +13,7 @@ export const routes: Routes = [
           { path: 'category/:key',loadComponent: () => import('./pages/category-list/category-list.component').then(m => m.CategoryListComponent)},
           { path: 'cart', loadComponent: () => import('./pages/cart/cart.component').then(m => m.CartComponent) },
           { path: 'search', loadComponent: () => import('./pages/search-result/search-result.component').then(m => m.SearchResultComponent) },
-          { path: 'profile', loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent) },
+          { path: 'profile', canActivate: [authGuard], loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent) },
           { path: '', redirectTo: 'home', pathMatch: 'full' }
         ]
       },
