@@ -1,36 +1,33 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Data } from '../../shared/services/data';
+import { Crud } from '../../shared/services/crud';
 import { Auth } from '../../shared/services/auth';
 import { addIcons } from 'ionicons';
 import { register } from 'swiper/element/bundle';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { addCircleOutline, cameraOutline, caretForwardCircle, closeCircleOutline, pencilOutline } from 'ionicons/icons';
-
 
 register();
 @Component({
   selector: 'app-profile',
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule ],
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProfileComponent implements OnInit {
-
+  @ViewChild('accordionGroup', { static: true }) accordionGroup!: any;
   profileForm!: FormGroup;
-  user: any;
+  apiUrl = "https://new-backend-w7jv.onrender.com";
+  user: any = {};
   activeTab = 'orders';
-
-  // crops: any[] = [];
-  // files: any[] = [];
-
-
+  crops: any[] = [];
 
 
   constructor(
-    private _crudService: Data,
+    private _crudService: Crud,
     private _auth: Auth,
     private fb: FormBuilder,
   ) {
@@ -41,83 +38,52 @@ export class ProfileComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('userData') || '{}');
     this.profileForm = this.fb.group({
       mobile: [this.user?.mobile || '', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      address: [this.user?.address || '', Validators.required],
+      Village: [this.user?.Village || '', Validators.required],
+      distic: [this.user?.distic || '', Validators.required],
+      state: [this.user?.state || '', Validators.required],
+      fulladdress: [this.user?.fulladdress || '', Validators.required],
       country: [this.user?.country || '', Validators.required]
     });
-  }
-  ionViewWillEnter() {
-    // this.loadProfile();
+    this.loadOrders();
   }
 
-  // loadProfile() {
-  //   this._auth.getProfile().subscribe(res => {
-  //     this.user = res;
-  //     localStorage.setItem('profile', JSON.stringify(res));
-  //   });
-  // }
-
+  onImgError(event: any) {
+    event.target.src = 'assets/avatar.png';
+  }
 
   submitProfile() {
     if (this.profileForm.invalid) return;
     this._auth.updateProfile(this.profileForm.value).subscribe((res: any) => {
-      localStorage.setItem('profile', JSON.stringify(res.user));
+      localStorage.setItem('userData', JSON.stringify(res.user));
       alert('Profile updated successfully');
-      this.profileForm.reset()
+      this.user = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData') || '{}') : {};
     });
   }
 
 
-  // onFilesSelected(event: any) {
-  //   const selectedFiles: FileList = event.target.files;
 
-  //   Array.from(selectedFiles).forEach((file: File) => {
+  loadOrders() {
+    if (this.user.userId) {
+      this._crudService.getOrders(this.user.userId).subscribe((res: any) => {
+        if (res.success) {
+          this.crops = res.data;
+        }
+      });
+    }
+  }
 
-  //     // 🔴 IMAGE
-  //     if (file.type.startsWith('image/')) {
-  //       this.files.push({
-  //         file,
-  //         type: 'image',
-  //         url: URL.createObjectURL(file)
-  //       });
-  //     }
+  updateitem(c: any) {
 
-  //     // 🔴 VIDEO
-  //     else if (file.type.startsWith('video/')) {
+  }
 
-  //       if (file.size > 4 * 1024 * 1024) {
-  //         alert('Video max size 4MB');
-  //         return;
-  //       }
+  removeItem(c: any) {
+    if (confirm("Do you really want to delete this item?")) {
+      this._crudService.deleteItem(c._id).subscribe(data => {
+        this.loadOrders();
+      })
+    }
+  }
 
-  //       const video = document.createElement('video');
-  //       video.preload = 'metadata';
-
-  //       video.onloadedmetadata = () => {
-  //         URL.revokeObjectURL(video.src);
-  //         const duration = video.duration;
-
-  //         if (duration < 10 || duration > 15) {
-  //           alert('Video must be 10–15 seconds');
-  //           return;
-  //         }
-
-  //         this.files.push({
-  //           file,
-  //           type: 'video',
-  //           url: URL.createObjectURL(file)
-  //         });
-  //       };
-
-  //       video.src = URL.createObjectURL(file);
-  //     }
-  //   });
-
-  //   event.target.value = '';
-  // }
-
-  // removeFile(index: number) {
-  //   this.files.splice(index, 1);
-  // }
 
 
 
