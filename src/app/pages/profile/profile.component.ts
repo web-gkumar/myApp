@@ -1,6 +1,6 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Crud } from '../../shared/services/crud';
 import { Auth } from '../../shared/services/auth';
@@ -30,12 +30,14 @@ export class ProfileComponent implements OnInit {
     private _crudService: Crud,
     private _auth: Auth,
     private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     addIcons({ pencilOutline, closeCircleOutline, cameraOutline, caretForwardCircle, addCircleOutline });
   }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('userData') || '{}');
+    this.user = JSON.parse(localStorage.getItem('profile') || '{}');
     this.profileForm = this.fb.group({
       mobile: [this.user?.mobile || '', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       Village: [this.user?.Village || '', Validators.required],
@@ -54,18 +56,19 @@ export class ProfileComponent implements OnInit {
   submitProfile() {
     if (this.profileForm.invalid) return;
     this._auth.updateProfile(this.profileForm.value).subscribe((res: any) => {
-      localStorage.setItem('userData', JSON.stringify(res.user));
+      localStorage.setItem('profile', JSON.stringify(res.user));
       alert('Profile updated successfully');
-      this.user = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData') || '{}') : {};
+      this.user = localStorage.getItem('profile') ? JSON.parse(localStorage.getItem('profile') || '{}') : {};
     });
   }
 
 
 
   loadOrders() {
-    if (this.user.userId) {
-      this._crudService.getOrders(this.user.userId).subscribe((res: any) => {
+    if (this.user._id) {
+      this._crudService.getOrders(this.user._id).subscribe((res: any) => {
         if (res.success) {
+          localStorage.setItem("Posted-data", JSON.stringify(res.data))
           this.crops = res.data;
         }
       });
@@ -73,7 +76,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateitem(c: any) {
-
+    this.router.navigate(['../update-post', c._id], { relativeTo: this.route });
   }
 
   removeItem(c: any) {

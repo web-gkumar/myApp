@@ -2,6 +2,7 @@ import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Crud } from '../../shared/services/crud';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { addCircleOutline, cameraOutline, caretForwardCircle, closeCircleOutline, pencilOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -15,17 +16,18 @@ register();
   styleUrls: ['./create-post.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CreatePostComponent  implements OnInit {
+export class CreatePostComponent implements OnInit {
   orderForm!: FormGroup;
   files: any[] = [];
   user: any = {};
+  urlId: any;
 
-  constructor(private fb: FormBuilder, private _crudService: Crud,) {
+  constructor(private fb: FormBuilder, private _crudService: Crud, private route: ActivatedRoute) {
     addIcons({ pencilOutline, closeCircleOutline, cameraOutline, caretForwardCircle, addCircleOutline });
   }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('userData') || '{}');
+    this.user = JSON.parse(localStorage.getItem('profile') || '{}');
     this.orderForm = this.fb.group({
       purpose: ['', Validators.required],
       cropName: ['', Validators.required],
@@ -33,13 +35,24 @@ export class CreatePostComponent  implements OnInit {
       quantity: ['', Validators.required],
       deliveryDate: ['', Validators.required]
     });
+
+    this.urlId = this.route.snapshot.paramMap.get('id');
+
+    if (this.urlId) {
+      const storedData = localStorage.getItem('Posted-data');
+      const getData = storedData ? JSON.parse(storedData) : [];
+      const selectedData = getData.find((item: any) => item._id === this.urlId);
+      if (selectedData) {
+        this.orderForm.patchValue(selectedData);
+      } 
+    }
   }
 
 
   submitOrder() {
     if (this.orderForm.invalid) return;
     const formData = new FormData();
-    formData.append('userId', this.user.userId);
+    formData.append('userId', this.user._id);
     formData.append('purpose', this.orderForm.value.purpose);
     formData.append('cropName', this.orderForm.value.cropName);
     formData.append('price', this.orderForm.value.price);

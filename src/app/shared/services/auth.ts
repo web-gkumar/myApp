@@ -18,7 +18,7 @@ export class Auth {
       .subscribe({
         next: (res: any) => {
           localStorage.setItem('token', res.token);
-          localStorage.setItem('userData', JSON.stringify(res.user));
+          localStorage.setItem('profile', JSON.stringify(res.user));
           alert('Login Success');
           this.router.navigateByUrl('tabs/profile');
         },
