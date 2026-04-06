@@ -20,6 +20,10 @@ export class Crud {
     return this.http.get(`${this.apiUrl}/orders/${userId}`);
   }
 
+   updateOrder(id:any, formData: FormData) {
+    return this.http.put(`${this.apiUrl}/orders/${id}`, formData);
+  }
+
   deleteItem(id:any){
     return this.http.delete(`${this.apiUrl}/orders/${id}`);
   }

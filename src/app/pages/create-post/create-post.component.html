@@ -14,14 +14,12 @@
       </ion-select>
     </ion-item>
 
-    <ion-item><ion-input color="primary" placeholder="Gobhi/Tamater/Aalu"
-        formControlName="cropName"></ion-input></ion-item>
+    <ion-item><ion-input color="primary" placeholder="Gobhi/Tamater/Aalu" formControlName="cropName"></ion-input></ion-item>
     <ion-item><ion-input color="primary" placeholder="120/kg" formControlName="price"></ion-input></ion-item>
     <ion-item><ion-input color="primary" placeholder="20/quntal" formControlName="quantity"></ion-input></ion-item>
-    <ion-item><ion-input color="primary" label="Select Date" type="date"
-        formControlName="deliveryDate"></ion-input></ion-item>
+    <ion-datetime presentation="date" display-format="DD/MM/YYYY" formControlName="deliveryDate"></ion-datetime>
 
-    <ion-item>
+    <!-- <ion-item>
       <ion-label>File Upload</ion-label>
       <input type="file" hidden #fileInput multiple accept="image/*,video/*" (change)="onFilesSelected($event)" />
       <ion-button expand="block" fill="outline" (click)="fileInput.click()">Select Files</ion-button>
@@ -33,9 +31,8 @@
         <img *ngIf="file.type === 'image'" [src]="file.url" />
         <video *ngIf="file.type === 'video'" [src]="file.url" controls></video>
       </swiper-slide>
-    </swiper-container>
+    </swiper-container> -->
 
-    <ion-button expand="block" color="secondary" (click)="submitOrder()" [disabled]="orderForm.invalid">Add
-      Order</ion-button>
+    <ion-button expand="block" color="secondary" (click)="urlId ? updateOrder() : submitOrder()" [disabled]="orderForm.invalid">{{urlId ? 'Update' : 'Add'}} Order</ion-button>
   </form>
 </ion-content>

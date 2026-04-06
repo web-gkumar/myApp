@@ -43,8 +43,16 @@ export class CreatePostComponent implements OnInit {
       const getData = storedData ? JSON.parse(storedData) : [];
       const selectedData = getData.find((item: any) => item._id === this.urlId);
       if (selectedData) {
+        if (selectedData.deliveryDate) {
+          const d = new Date(selectedData.deliveryDate);
+          selectedData.deliveryDate = d.toISOString().split('T')[0]; // 👉 YYYY-MM-DD
+        }
         this.orderForm.patchValue(selectedData);
-      } 
+      }
+
+
+
+
     }
   }
 
@@ -71,6 +79,19 @@ export class CreatePostComponent implements OnInit {
       }
     });
   }
+
+
+  updateOrder() {
+    if (this.orderForm.invalid) return;
+    this._crudService.updateOrder(this.urlId, this.orderForm.value).subscribe({
+      next: () => {
+        alert('Order Updated');
+        this.orderForm.reset();
+        this.files = [];
+      }
+    });
+  }
+
 
   onFilesSelected(event: any) {
     const selectedFiles: FileList = event.target.files;
