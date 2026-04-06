@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit {
       Village: [this.user?.Village || '', Validators.required],
       distic: [this.user?.distic || '', Validators.required],
       state: [this.user?.state || '', Validators.required],
+      pincode: [this.user?.pincode || '', Validators.required],
       fulladdress: [this.user?.fulladdress || '', Validators.required],
       country: [this.user?.country || '', Validators.required]
     });
@@ -56,9 +57,10 @@ export class ProfileComponent implements OnInit {
   submitProfile() {
     if (this.profileForm.invalid) return;
     this._auth.updateProfile(this.profileForm.value).subscribe((res: any) => {
-      localStorage.setItem('profile', JSON.stringify(res.user));
-      alert('Profile updated successfully');
-      this.user = localStorage.getItem('profile') ? JSON.parse(localStorage.getItem('profile') || '{}') : {};
+      this.user = res.user;
+      // localStorage.setItem('profile', JSON.stringify(res.user));
+      // alert('Profile updated successfully');
+      // this.user = localStorage.getItem('profile') ? JSON.parse(localStorage.getItem('profile') || '{}') : {};
     });
   }
 
