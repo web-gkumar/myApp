@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start"><ion-back-button defaultHref="/tabs/home"></ion-back-button></ion-buttons>
+    <ion-buttons slot="start"><ion-back-button [defaultHref]="currentRoute"></ion-back-button></ion-buttons>
     <ion-title>{{ title | titlecase }}</ion-title>
     <ion-title slot="end">Ph: 9898989898</ion-title>
   </ion-toolbar>

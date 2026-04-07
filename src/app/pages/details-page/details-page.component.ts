@@ -20,7 +20,8 @@ export class DetailsPageComponent  implements OnInit {
 
   title = "Test"
   dataId = '';
-  allItems:any
+  allItems:any;
+  currentRoute: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,12 @@ export class DetailsPageComponent  implements OnInit {
     this.dataId = this.route.snapshot.paramMap.get('id')!;
     this.allItems = this.dataService.getdatabyId(Number(this.dataId));
     this.title = this.allItems[0].name;
+    // this.currentRoute = localStorage.getItem('currentTab') || '/tabs/home';
+    // console.log('detail',this.currentRoute); 
+  }
+
+  ionViewWillEnter() {
+    this.currentRoute = localStorage.getItem('currentTab') || '/tabs/home';
   }
 
 }

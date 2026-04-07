@@ -15,4 +15,9 @@ export class TabsPage {
   constructor() {
     addIcons({ triangle, home, leaf, people, person });
   }
+
+  onTabClick(currentTab: string) {
+    localStorage.setItem('currentTab', currentTab);
+    
+  }
 }

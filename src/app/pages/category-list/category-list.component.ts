@@ -15,7 +15,8 @@ import { searchOutline, callOutline } from 'ionicons/icons';
 export class CategoryListComponent  implements OnInit {
 
   category = '';
-  allItems:any
+  allItems:any;
+  currentRoute: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +29,8 @@ export class CategoryListComponent  implements OnInit {
   ngOnInit() {
     this.category = this.route.snapshot.paramMap.get('key')!;
     this.allItems = this.dataService.getDatabycategory(this.category);
+    this.currentRoute = localStorage.getItem('currentTab') || '/tabs/home';
+
   }
 
     detailspage(data: any) {
