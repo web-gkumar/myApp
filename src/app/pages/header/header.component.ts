@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+
 import { searchOutline, callOutline, cartOutline, personCircleOutline } from 'ionicons/icons';
 import { SearchResultComponent} from '../search-result/search-result.component';
 import { CartComponent } from '../cart/cart.component';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-   imports: [IonicModule, CommonModule],
+   imports: [IonicModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })

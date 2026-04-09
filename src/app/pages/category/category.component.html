@@ -8,12 +8,14 @@
   </div>
   <ion-grid>
     <ion-row>
-      <ion-col size="4" *ngFor="let cat of categories">
-        <div class="cat-card" (click)="openCategory(cat.category)">
-          <img [src]="cat.image" />
-          <small>{{ cat.category }}</small>
-        </div>
-      </ion-col>
+      @for (cat of categories; track cat) {
+        <ion-col size="4">
+          <div class="cat-card" (click)="openCategory(cat.category)">
+            <img [src]="cat.image" />
+            <small>{{ cat.category }}</small>
+          </div>
+        </ion-col>
+      }
     </ion-row>
   </ion-grid>
 </ion-content>

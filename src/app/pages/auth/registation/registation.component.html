@@ -15,13 +15,19 @@
           <ion-input labelPlacement="floating" type="tel" maxlength="10" formControlName="mobile" placeholder="Mobile"><div slot="label">Mobile <ion-text color="danger">*</ion-text></div></ion-input>
         </ion-item>
         <!-- <ion-text color="danger" *ngIf="registerForm.get('mobile')?.touched && registerForm.get('mobile')?.invalid"><small>Enter valid 10 digit mobile number</small></ion-text> -->
-        <ion-item *ngIf="otpSent">
-          <ion-input labelPlacement="floating" type="number" formControlName="otp" placeholder="Enter OTP"><div slot="label">OTP <ion-text color="danger">*</ion-text></div></ion-input>
-        </ion-item>
+        @if (otpSent) {
+          <ion-item>
+            <ion-input labelPlacement="floating" type="number" formControlName="otp" placeholder="Enter OTP"><div slot="label">OTP <ion-text color="danger">*</ion-text></div></ion-input>
+          </ion-item>
+        }
         <!-- <ion-text color="danger" *ngIf="otpSent && registerForm.get('otp')?.touched && registerForm.get('otp')?.invalid"><small>Invalid OTP</small></ion-text> -->
       </ion-list>
-      <ion-button expand="block" *ngIf="!otpSent" [disabled]="registerForm.invalid" (click)="sendOtp()">Send OTP</ion-button>
-      <ion-button expand="block" color="success" *ngIf="otpSent" [disabled]="registerForm.get('otp')?.invalid" (click)="verifyOtp()">Verify & Register</ion-button>
+      @if (!otpSent) {
+        <ion-button expand="block" [disabled]="registerForm.invalid" (click)="sendOtp()">Send OTP</ion-button>
+      }
+      @if (otpSent) {
+        <ion-button expand="block" color="success" [disabled]="registerForm.get('otp')?.invalid" (click)="verifyOtp()">Verify & Register</ion-button>
+      }
     </form>
     <p class="link">Already have an account? <span routerLink="/login">Login</span></p>
   </div>

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-registation',
-  imports: [IonicModule, CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [IonicModule, RouterModule, ReactiveFormsModule],
   templateUrl: './registation.component.html',
   styleUrls: ['./registation.component.scss'],
 })
