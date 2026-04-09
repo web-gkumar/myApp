@@ -1,100 +1,75 @@
 <ion-content>
-  <ion-card color="primary">
+  <ion-card color="secondary">
     <ion-item lines="none">
-      <ion-avatar slot="start">
-        <img [src]="user?.user?.picture" />
-        <!-- <ion-icon name="camera-outline"></ion-icon> -->
-      </ion-avatar>
+      <ion-avatar slot="start"><ion-img [src]="user?.picture || 'assets/avatar.png'"
+          (ionError)="onImgError($event)"></ion-img></ion-avatar>
       <ion-label style="color:#fff;">
-        <h2>{{user?.user?.name}}</h2>
-        <p style="color:#fff;">{{user?.user?.mobile ? user?.user?.mobile : '+91 xxx xxxx'}}</p>
-        <small>{{user?.user?.email}}</small>
+        <h2>{{user?.name}}</h2>
+        <p style="color:#fff;">{{user?.mobile ? user?.mobile : '+91 xxx xxxx'}}</p>
+        <small>{{user?.email}}</small>
       </ion-label>
     </ion-item>
 
     <ion-segment [(ngModel)]="activeTab">
-      <ion-segment-button value="about">Orders</ion-segment-button>
+      <ion-segment-button value="orders">Orders</ion-segment-button>
       <ion-segment-button value="favorite">Favorite</ion-segment-button>
-      <ion-segment-button value="orders">About</ion-segment-button>
+      <ion-segment-button value="about">About</ion-segment-button>
     </ion-segment>
   </ion-card>
 
 
-
-  <!-- 
-
   <div *ngIf="activeTab === 'orders'">
-    <ion-accordion-group>
-      <ion-accordion value="first" toggleIcon="caret-forward-circle" toggleIconSlot="end">
-        <ion-item slot="header" color="light"> <ion-icon name="add-circle-outline"></ion-icon> <ion-label>Add Items</ion-label></ion-item>
-        <div class="ion-padding" slot="content">
-          <ion-list>
-            <ion-item>
-              <ion-select placeholder="For Buy/Sell">
-                <ion-select-option value="apple">For Buy</ion-select-option>
-                <ion-select-option value="banana">For Sell</ion-select-option>
-              </ion-select>
-            </ion-item>
-            <ion-item><ion-input color="primary" placeholder="Gobhi/Tamater/Aalu"></ion-input></ion-item>
-            <ion-item><ion-input color="primary" placeholder="120/kg"></ion-input></ion-item>
-            <ion-item><ion-input color="primary" placeholder="20/quntal"></ion-input></ion-item>
-            <ion-item><ion-input color="primary" label="Select Date" type="date"></ion-input></ion-item>
-
-            <ion-item>
-              <ion-label>File Upload</ion-label>
-              <input type="file" hidden #fileInput multiple accept="image/*,video/*"
-                (change)="onFilesSelected($event)" />
-              <ion-button expand="block" fill="outline" (click)="fileInput.click()">Select Files</ion-button>
-            </ion-item>
-
-            <swiper-container slides-per-view="1" pagination="true" autoplay-delay="5000" loop="true">
-              <swiper-slide *ngFor="let file of files; let i = index">
-                <ion-button size="small" color="danger" fill="clear" (click)="removeFile(i)">Remove</ion-button>
-                <img *ngIf="file.type === 'image'" [src]="file.url" />
-                <video *ngIf="file.type === 'video'" [src]="file.url" controls></video>
-              </swiper-slide>
-            </swiper-container>
-
-          </ion-list>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
-
-    <ion-grid>
+    <ion-item slot="header" color="secondary" routerLink="../create-post"><ion-icon name="add-circle-outline"></ion-icon> <ion-label>Add Items</ion-label></ion-item>
+    <!-- <ion-grid>
       <ion-row>
         <ion-col *ngFor="let c of crops">
           <ion-card class="card">
-            <swiper-container slides-per-view="1" pagination="true" loop="true">
-              <swiper-slide><ion-img [src]="c.image"></ion-img></swiper-slide>
-              <swiper-slide><ion-img [src]="c.image"></ion-img></swiper-slide>
-              <swiper-slide><ion-img [src]="c.image"></ion-img></swiper-slide>
-            </swiper-container>
-
             <ion-card-content>
-              <ion-item lines="none">
-                <ion-label>
-                  <h2>{{ c.name | titlecase}} - <small>₹{{c.price}}/kg</small></h2>
-                </ion-label>
-                <ion-label>
-                  <h2>Qty: <small>{{c.quantity}}</small></h2>
-                </ion-label>
-              </ion-item>
+              <ion-item lines="none"><ion-label><h2>{{ c.cropName | titlecase}} - <small>₹{{c.price}}</small></h2></ion-label></ion-item>
               <ion-item lines="none">
                 <ion-label><small>Qty: {{c.quantity}}</small></ion-label>
-                <ion-label><small>delevery: 15-Jan</small></ion-label>
+                <ion-label><small>Deliver: {{ c.deliveryDate | date:'dd/MMM/yyyy' }}</small></ion-label>
               </ion-item>
               <ion-item lines="none">
                 <ion-label>Perpose: For Buying</ion-label>
-                <ion-badge slot="end" color="success"><ion-icon name="pencil-outline"></ion-icon></ion-badge>
-                <ion-badge slot="end" color="danger"><ion-icon name="close-circle-outline"></ion-icon></ion-badge>
+                <ion-badge slot="end" color="success" (click)="updateitem(c)"><ion-icon name="pencil-outline"></ion-icon></ion-badge>
+                <ion-badge slot="end" color="danger" (click)="removeItem(c)"><ion-icon name="close-circle-outline"></ion-icon></ion-badge>
               </ion-item>
             </ion-card-content>
+            <swiper-container slides-per-view="1" pagination="true">
+              <swiper-slide *ngFor="let f of c.files">
+                <img *ngIf="f.type === 'image'" [src]="apiUrl + f.url" width="100%"/>
+                <video *ngIf="f.type === 'video'" [src]="apiUrl + f.url" controls>
+                </video>
+              </swiper-slide>
+            </swiper-container>
           </ion-card>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
 
 
+    <ion-card class="card" *ngFor="let c of crops">
+            <ion-card-content>
+              <ion-item lines="none"><ion-label><h2>{{ c.cropName | titlecase}} - <small>₹{{c.price}}</small></h2></ion-label></ion-item>
+              <ion-item lines="none">
+                <ion-label><small>Qty: {{c.quantity}}</small></ion-label>
+                <ion-label><small>Deliver: {{ c.deliveryDate | date:'dd/MMM/yyyy' }}</small></ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Perpose: For {{c.purpose}}</ion-label>
+                <ion-badge slot="end" color="success" (click)="updateitem(c)"><ion-icon name="pencil-outline"></ion-icon></ion-badge>
+                <ion-badge slot="end" color="danger" (click)="removeItem(c)"><ion-icon name="close-circle-outline"></ion-icon></ion-badge>
+              </ion-item>
+            </ion-card-content>
+            <swiper-container slides-per-view="1" pagination="true">
+              <swiper-slide *ngFor="let f of c.files">
+                <img *ngIf="f.type === 'image'" [src]="apiUrl + f.url" width="100%"/>
+                <video *ngIf="f.type === 'video'" [src]="apiUrl + f.url" controls>
+                </video>
+              </swiper-slide>
+            </swiper-container>
+          </ion-card>
   </div>
 
 
@@ -109,19 +84,21 @@
         <ion-badge slot="end" color="success">Follower</ion-badge>
       </ion-item>
     </ion-card>
-
-  </ion-list> -->
-
-
-  <ion-list *ngIf="activeTab === 'orders'">
-    <form [formGroup]="profileForm">
-      <ion-item><ion-label><h5>Personal Information</h5></ion-label></ion-item>
-      <ion-item><ion-input type="tel" placeholder="+91 xxxxxxxxxx" formControlName="mobile"></ion-input></ion-item>
-      <ion-item><ion-input placeholder="Your Address" formControlName="address"></ion-input></ion-item>
-      <ion-item><ion-input placeholder="Country" formControlName="country"></ion-input></ion-item>
-      <ion-button expand="block" (click)="submitProfile()">Save Profile</ion-button>
-    </form>
   </ion-list>
 
 
+  <ion-list *ngIf="activeTab === 'about'">
+    <form [formGroup]="profileForm">
+      <ion-item><ion-label><h5>Personal Information</h5></ion-label></ion-item>
+      <ion-item><ion-input type="tel" placeholder="+91 xxxxxxxxxx *" formControlName="mobile"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="Village *" formControlName="Village"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="Distic *" formControlName="distic"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="State *" formControlName="state"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="Pin Code *" formControlName="pincode"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="Country *" formControlName="country"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="Your Address *" formControlName="fulladdress"></ion-input></ion-item>
+      <ion-button color="secondary" expand="block" (click)="submitProfile()">Update Profile</ion-button>
+    </form>
+  </ion-list>
+  
 </ion-content>

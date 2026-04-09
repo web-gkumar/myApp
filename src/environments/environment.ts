@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:5000/api'
+  baseUrl: 'https://new-backend-w7jv.onrender.com/api'
 };
 
 /*

@@ -12,13 +12,13 @@ export class Auth {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-
   handleGoogleResponse(response: any) {
     const idToken = response.credential;
     this.http.post(`${this.apiUrl}/google-login`, { idToken })
       .subscribe({
         next: (res: any) => {
           localStorage.setItem('token', res.token);
+          localStorage.setItem('profile', JSON.stringify(res.user));
           alert('Login Success');
           this.router.navigateByUrl('tabs/profile');
         },
@@ -40,11 +40,6 @@ export class Auth {
 
   logout() {
     localStorage.removeItem('token');
-  }
-
-
-  getProfile() {
-    return this.http.get(`${this.apiUrl}/profile`);
   }
 
   updateProfile(data: any) {

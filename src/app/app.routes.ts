@@ -14,6 +14,8 @@ export const routes: Routes = [
           { path: 'cart', loadComponent: () => import('./pages/cart/cart.component').then(m => m.CartComponent) },
           { path: 'search', loadComponent: () => import('./pages/search-result/search-result.component').then(m => m.SearchResultComponent) },
           { path: 'profile', canActivate: [authGuard], loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent) },
+          { path: 'create-post', loadComponent: () => import('./pages/create-post/create-post.component').then(m => m.CreatePostComponent)},
+          { path: 'update-post/:id', loadComponent: () => import('./pages/create-post/create-post.component').then(m => m.CreatePostComponent)},
           { path: '', redirectTo: 'home', pathMatch: 'full' }
         ]
       },
