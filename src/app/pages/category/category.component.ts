@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+
 import { HeaderComponent } from '../header/header.component';
 import { searchOutline, callOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
-  imports: [HeaderComponent, IonicModule, CommonModule],
+  imports: [HeaderComponent, IonicModule],
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
 })

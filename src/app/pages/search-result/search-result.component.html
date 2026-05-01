@@ -11,17 +11,21 @@
     <ion-label><strong>Search History</strong></ion-label>
     <ion-button fill="clear" size="small">Clear</ion-button>
   </ion-item>
-  <ion-chip *ngFor="let item of recentSearch">
-    <ion-label>{{ item }}</ion-label>
-  </ion-chip>
+  @for (item of recentSearch; track item) {
+    <ion-chip>
+      <ion-label>{{ item }}</ion-label>
+    </ion-chip>
+  }
 
 
   <ion-item lines="none" class="ion-margin-top">
     <ion-label><strong>Most Viewer</strong></ion-label>
     <ion-button fill="clear" size="small">Refresh</ion-button>
   </ion-item>
-  <ion-chip *ngFor="let item of recentSearch">
-    <ion-label>{{ item }}</ion-label>
-  </ion-chip>
+  @for (item of recentSearch; track item) {
+    <ion-chip>
+      <ion-label>{{ item }}</ion-label>
+    </ion-chip>
+  }
 
 </ion-content>

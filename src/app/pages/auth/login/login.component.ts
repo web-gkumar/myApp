@@ -1,13 +1,13 @@
 declare var google: any;
 import { Component, AfterViewInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+
 import { HttpClient } from '@angular/common/http';
 import { Auth } from '../../../shared/services/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

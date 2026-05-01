@@ -1,6 +1,6 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+
 import { Crud } from '../../shared/services/crud';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,7 +11,7 @@ import { register } from 'swiper/element/bundle';
 register();
 @Component({
   selector: 'app-create-post',
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [IonicModule, FormsModule, ReactiveFormsModule],
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

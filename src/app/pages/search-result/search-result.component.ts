@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule } from '@ionic/angular';
 import { Data } from '../../shared/services/data';
 import { addIcons } from 'ionicons';
@@ -7,7 +7,7 @@ import { locationOutline, optionsOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-search-result',
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule],
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
 })
